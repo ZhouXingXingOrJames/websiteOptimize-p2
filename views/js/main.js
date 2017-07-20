@@ -403,13 +403,13 @@ var resizePizzas = function(size) {
   function changeSliderLabel(size) {
     switch(size) {
       case "1":
-        document.querySelector("#pizzaSize").innerHTML = "Small";
+        document.getElementById("pizzaSize").innerHTML = "Small";
         return;
       case "2":
-        document.querySelector("#pizzaSize").innerHTML = "Medium";
+        document.getElementById("pizzaSize").innerHTML = "Medium";
         return;
       case "3":
-        document.querySelector("#pizzaSize").innerHTML = "Large";
+        document.getElementById("pizzaSize").innerHTML = "Large";
         return;
       default:
         console.log("bug in changeSliderLabel");
@@ -446,9 +446,9 @@ var resizePizzas = function(size) {
 
   // 遍历披萨的元素并改变它们的宽度
     function changePizzaSizes(size) {
-        var dx = determineDx(document.querySelector(".randomPizzaContainer"), size);
-        var newwidth = (document.querySelector(".randomPizzaContainer").offsetWidth + dx) + 'px';
-        var elements = document.querySelectorAll(".randomPizzaContainer");
+        var dx = determineDx(document.getElementsByClassName("randomPizzaContainer"), size);
+        var newwidth = (document.getElementsByClassName("randomPizzaContainer").offsetWidth + dx) + 'px';
+        var elements = document.getElementsByClassName("randomPizzaContainer");
         for (var i = elements.length; i--;) {
             elements[i].style.width = newwidth;
         }
@@ -499,9 +499,11 @@ function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
 
-  var items = document.querySelectorAll('.mover');
+  var items = document.getElementsByClassName('mover');
+  var top = document.body.scrollTop / 1250;
+  var phase;
   for (var i = 0; i < items.length; i++) {
-    var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
+      phase = Math.sin(top + i % 5);
       var left = -items[i].basicLeft + 1000 * phase + 'px';
       items[i].style.transform = "translateX("+left+") translateZ(0)";
   }
@@ -525,7 +527,7 @@ window.addEventListener('scroll', function() {
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
   var s = 256;
-  for (var i = 0; i < 31; i--) {
+  for (var i = 0; i < 31; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
     elem.src = "images/pizza.png";

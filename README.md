@@ -114,7 +114,17 @@ window.addEventListener('scroll', function() {
     }
 ```
 创建一个新的变量，保存所有的.randomPizzaContainer元素，在循环外，避免每次循环都去获取所有的元素。
-
+### 减少for循环中的运算
+```
+ var items = document.getElementsByClassName('mover');
+  var top = document.body.scrollTop / 1250;
+  var phase;
+  for (var i = 0; i < items.length; i++) {
+      phase = Math.sin(top + i % 5);
+      var left = -items[i].basicLeft + 1000 * phase + 'px';
+      items[i].style.transform = "translateX("+left+") translateZ(0)";
+  }
+```
 # 联系我
 如果你有更好的优化方式，可以一起讨论一个更好的优化方案
 ###### QQ邮箱:1098769275@qq.com
