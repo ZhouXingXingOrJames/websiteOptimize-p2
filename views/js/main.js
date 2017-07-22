@@ -421,7 +421,7 @@ var resizePizzas = function(size) {
    // 返回不同的尺寸以将披萨元素由一个尺寸改成另一个尺寸。由changePizzaSlices(size)函数调用
   function determineDx (elem, size) {
     var oldWidth = elem.offsetWidth;
-    var windowWidth = document.querySelector("#randomPizzas").offsetWidth;
+    var windowWidth = document.getElementById("randomPizzas").offsetWidth;
     var oldSize = oldWidth / windowWidth;
 
     // 将值转成百分比宽度
@@ -446,10 +446,12 @@ var resizePizzas = function(size) {
 
   // 遍历披萨的元素并改变它们的宽度
     function changePizzaSizes(size) {
-        var dx = determineDx(document.getElementsByClassName("randomPizzaContainer"), size);
-        var newwidth = (document.getElementsByClassName("randomPizzaContainer").offsetWidth + dx) + 'px';
-        var elements = document.getElementsByClassName("randomPizzaContainer");
+
+        var random = document.getElementsByClassName("randomPizzaContainer");
+        var elements = random;
         for (var i = elements.length; i--;) {
+            var dx = determineDx(elements[i], size);
+            var newwidth = (elements[i].offsetWidth + dx) + 'px';
             elements[i].style.width = newwidth;
         }
     }
@@ -504,7 +506,7 @@ function updatePositions() {
   var phase;
   for (var i = 0; i < items.length; i++) {
       phase = Math.sin(top + i % 5);
-      var left = -items[i].basicLeft + 1000 * phase + 'px';
+      var left = -items[i].basicLeft + 100 * phase + 'px';
       items[i].style.transform = "translateX("+left+") translateZ(0)";
   }
 
@@ -535,6 +537,8 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    //初始化位置
+    elem.style.right = (Math.ceil(i / cols) * s)  + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
   updatePositions();
