@@ -64,6 +64,8 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
     elem.style.top = (Math.floor(i / cols) * s) + 'px';
+    //初始化位置
+    elem.style.right = (Math.ceil(i / cols) * s)  + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
   updatePositions();
@@ -80,7 +82,7 @@ function updatePositions() {
   var items = document.querySelectorAll('.mover');
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin((document.body.scrollTop / 1250) + (i % 5));
-      var left = -items[i].basicLeft + 1000 * phase + 'px';
+      var left = -items[i].basicLeft + 100 * phase + 'px';
       items[i].style.transform = "translateX("+left+") translateZ(0)";
   }
 
@@ -105,12 +107,13 @@ window.addEventListener('scroll', function() {
 
 ```
    function changePizzaSizes(size) {
-        var dx = determineDx(document.querySelector(".randomPizzaContainer"), size);
-        var newwidth = (document.querySelector(".randomPizzaContainer").offsetWidth + dx) + 'px';
-        var elements = document.querySelectorAll(".randomPizzaContainer");
-        for (var i = elements.length; i--;) {
-            elements[i].style.width = newwidth;
-        }
+               var random = document.getElementsByClassName("randomPizzaContainer");
+               var elements = random;
+               for (var i = elements.length; i--;) {
+                   var dx = determineDx(elements[i], size);
+                   var newwidth = (elements[i].offsetWidth + dx) + 'px';
+                   elements[i].style.width = newwidth;
+               }
     }
 ```
 创建一个新的变量，保存所有的.randomPizzaContainer元素，在循环外，避免每次循环都去获取所有的元素。
@@ -121,7 +124,7 @@ window.addEventListener('scroll', function() {
   var phase;
   for (var i = 0; i < items.length; i++) {
       phase = Math.sin(top + i % 5);
-      var left = -items[i].basicLeft + 1000 * phase + 'px';
+      var left = -items[i].basicLeft + 100 * phase + 'px';
       items[i].style.transform = "translateX("+left+") translateZ(0)";
   }
 ```
