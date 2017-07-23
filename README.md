@@ -106,15 +106,18 @@ window.addEventListener('scroll', function() {
 ### 优化循环遍历披萨并改变宽度的方法
 
 ```
-   function changePizzaSizes(size) {
-               var random = document.getElementsByClassName("randomPizzaContainer");
-               var elements = random;
-               for (var i = elements.length; i--;) {
-                   var dx = determineDx(elements[i], size);
-                   var newwidth = (elements[i].offsetWidth + dx) + 'px';
-                   elements[i].style.width = newwidth;
-               }
-    }
+      function changePizzaSizes(size) {
+
+          var random = document.getElementsByClassName("randomPizzaContainer");
+          var elements = random;
+          var dx = determineDx(elements[0], size);
+          //计算出最新需要变化的宽度
+          var newwidth = (elements[0].offsetWidth + dx) + 'px';
+          for (var i = elements.length; i--;) {
+              elements[i].style.width = newwidth;
+          }
+      }
+
 ```
 创建一个新的变量，保存所有的.randomPizzaContainer元素，在循环外，避免每次循环都去获取所有的元素。
 ### 减少for循环中的运算

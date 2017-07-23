@@ -449,9 +449,12 @@ var resizePizzas = function(size) {
 
         var random = document.getElementsByClassName("randomPizzaContainer");
         var elements = random;
+        //获取一个元素进行计算
+        var dx = determineDx(elements[0], size);
+        //计算出最新需要变化的宽度
+        var newwidth = (elements[0].offsetWidth + dx) + 'px';
         for (var i = elements.length; i--;) {
-            var dx = determineDx(elements[i], size);
-            var newwidth = (elements[i].offsetWidth + dx) + 'px';
+            //将宽度循环赋值给所有披萨
             elements[i].style.width = newwidth;
         }
     }
@@ -536,8 +539,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.height = "100px";
     elem.style.width = "73.333px";
     elem.basicLeft = (i % cols) * s;
-    elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    //初始化位置
+    // elem.style.top = (Math.floor(i / cols) * s) + 'px';
     elem.style.right = (Math.ceil(i / cols) * s)  + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
